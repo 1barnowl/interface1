@@ -47,23 +47,7 @@ Think of Glue as a **self-driving integration layer** that actively seeks out op
 Glue is built as a multi‑threaded daemon where each phase runs on independent event loops:
 
 
-┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-│ DISCOVERY │────▶│ MATCHING │────▶│ POLICY │────▶│ SYNTHESIS │
-│ Worker │ │ Worker │ │ Engine │ │ Worker │
-└─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
-│ │ │
-▼ ▼ ▼
-┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-│ Node Registry│ │Capability │ │ Active │
-│ & Contracts │◀────│ Graph │ │ Bridges │
-└─────────────┘ └─────────────┘ └─────────────┘
-│ │
-└───────────────────────┬───────────────────────────────────┘
-▼
-┌─────────────────┐
-│ LIFECYCLE + DRIFT│
-│ WATCHDOG │
-└─────────────────┘
+
 
 
 
