@@ -2,7 +2,6 @@
 
 <div align="center">
 
-![Glue Logo](docs/glue-logo.png)
 
 **Autonomous Middleware Daemon**  
 *Discover. Map. Bridge. Without manual wiring.*
