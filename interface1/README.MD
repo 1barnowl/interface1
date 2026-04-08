@@ -4,7 +4,6 @@
 
 
 **Autonomous Middleware Daemon**  
-*Discover. Map. Bridge. Without manual wiring.*
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
