@@ -45,3 +45,66 @@ Think of Glue as a **self-driving integration layer** that actively seeks out op
 ## Architecture
 
 Glue is built as a multi‑threaded daemon where each phase runs on independent event loops:
+
+
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│ DISCOVERY │────▶│ MATCHING │────▶│ POLICY │────▶│ SYNTHESIS │
+│ Worker │ │ Worker │ │ Engine │ │ Worker │
+└─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
+│ │ │
+▼ ▼ ▼
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│ Node Registry│ │Capability │ │ Active │
+│ & Contracts │◀────│ Graph │ │ Bridges │
+└─────────────┘ └─────────────┘ └─────────────┘
+│ │
+└───────────────────────┬───────────────────────────────────┘
+▼
+┌─────────────────┐
+│ LIFECYCLE + DRIFT│
+│ WATCHDOG │
+└─────────────────┘
+
+
+
+- **Discovery Worker** scans the environment every 500ms, infers data contracts, and builds semantic embeddings.  
+- **Matching Worker** ranks producer‑consumer pairs using a composite score (semantic similarity, protocol compatibility, latency estimates, policy risk).  
+- **Policy Engine** (OPA) evaluates each candidate against user-defined Rego policies, rejecting unsafe matches and queueing high‑risk ones for manual approval.  
+- **Synthesis Worker** compiles protocol translators, field mappers, and backpressure controllers into a WASM module, then deploys the bridge.  
+- **Lifecycle Worker** monitors bridge health, handles retries/circuit breakers, and re‑synthesizes adapters when contract drift exceeds 15%.
+
+All state is backed by PostgreSQL and Redis, with the capability graph held in memory for fast traversal.
+
+## Core Dependencies
+
+Glue leverages a carefully chosen set of open‑source technologies:
+
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| **Core Language** | Rust (or Go) | High‑performance, safe concurrency |
+| **Message Bus** | ZeroMQ, Redpanda (Kafka‑compatible) | Internal event fabric |
+| **Service Discovery** | Consul | Node registry and health checking |
+| **State & Persistence** | PostgreSQL, Redis | Durable storage, caching, leader election |
+| **Observability** | OpenTelemetry, Prometheus, Jaeger, Loki | Metrics, traces, logs |
+| **Policy Engine** | Open Policy Agent (OPA) | Policy evaluation and enforcement |
+| **WASM Runtime** | Wasmtime, Extism | Sandboxed adapter execution |
+| **ML Inference** | ONNX Runtime, sentence-transformers | Semantic embedding and field alignment |
+| **Container Orchestration** | Docker Compose (dev), Kubernetes/Helm (prod) | Deployment and scaling |
+
+> Full dependency list is available in `Cargo.toml` (Rust) or `go.mod` (Go). We aim to keep the stack entirely self‑hostable and free of proprietary services.
+
+## Getting Started
+
+### Prerequisites
+
+- Docker & Docker Compose (for local development)
+- Rust 1.75+ or Go 1.21+ (if building from source)
+- PostgreSQL 14+ and Redis 7+ (provided via Docker Compose)
+- Consul (optional, for service discovery)
+
+### Quick Start with Docker Compose
+
+```bash
+git clone https://github.com/yourusername/glue.git
+cd glue
+docker-compose up -d
