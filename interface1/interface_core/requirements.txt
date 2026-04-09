@@ -1,0 +1,38 @@
+# Interface Core — Python dependencies
+# Install: pip install -r requirements.txt
+
+# ── Core async runtime ────────────────────────────────────────────────────
+asyncio-mqtt>=0.16.0          # MQTT async client
+aiohttp>=3.9.0                # REST probing
+aiokafka>=0.10.0              # Kafka async client
+
+# ── Data models ───────────────────────────────────────────────────────────
+pydantic>=1.10,<2.0           # Data models (v1 API used throughout)
+
+# ── Messaging / transport ─────────────────────────────────────────────────
+pyzmq>=25.0                   # ZeroMQ event bus
+confluent-kafka>=2.3.0        # Kafka (alternative to aiokafka for production)
+
+# ── Service discovery ─────────────────────────────────────────────────────
+python-consul2>=0.1.5         # Consul service registry
+
+# ── ML / embeddings ───────────────────────────────────────────────────────
+sentence-transformers>=2.7.0  # Semantic embeddings (all-MiniLM-L6-v2)
+numpy>=1.24.0                 # Required by sentence-transformers
+torch>=2.0.0                  # Backend for sentence-transformers (CPU build is fine)
+
+# ── Observability ─────────────────────────────────────────────────────────
+opentelemetry-sdk>=1.24.0
+opentelemetry-exporter-otlp>=1.24.0
+prometheus_client>=0.20.0
+
+# ── Persistence ───────────────────────────────────────────────────────────
+asyncpg>=0.29.0               # PostgreSQL async driver
+redis>=5.0.0                  # Redis async client
+
+# ── WASM sandboxing (optional; for adapter hot-reload) ────────────────────
+# wasmtime>=19.0.0            # Uncomment when WASM adapter compilation is enabled
+
+# ── Dev / test ────────────────────────────────────────────────────────────
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
