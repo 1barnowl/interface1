@@ -103,12 +103,12 @@ Glue leverages a carefully chosen set of open‑source technologies:
 
 
 
-**Autonomous middleware glue daemon** — proactive discovery, library consolidation,
-and dynamic bridging between disparate software nodes.
+                                                              **Autonomous middleware glue daemon** — proactive discovery, library consolidation,
+                                                              and dynamic bridging between disparate software nodes.
 
 ---
 
-## What It Does
+What It Does
 
 Interface Core runs as a background daemon that:
 
