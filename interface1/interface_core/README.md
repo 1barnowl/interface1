@@ -103,7 +103,7 @@ Glue leverages a carefully chosen set of open‑source technologies:
 
 
 
-**Autonomous middleware glue daemon** — proactive discovery, library consolidation,
+**Autonomous middleware daemon** — proactive discovery, library consolidation,
 and dynamic bridging between disparate software nodes.
 
 ---
