@@ -1,4 +1,4 @@
-# Interface1 – Autonomous Middleware and Dynamic Bridging Fabric
+# Interface1
 
 ## Core Idea
 
